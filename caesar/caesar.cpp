@@ -61,16 +61,16 @@ string decryption(string message, int key)
     return decrypted;
 }
 //----------------------------------------------------------------------------//
-int main() {
+void run_caesar() {
     // declaring the needed variables
     int shift;
     string plaintext, ciphertext, shift_str, encrypted, decrypted, brute_force;
     // setting files for read/write
-    ifstream shift_file("shift.txt");
-    ifstream plaintext_file("plaintext.txt");
-    ofstream ciphertext_file("ciphertext.txt");
-    ofstream decrypted_file("decrypted.txt");
-    ofstream bruteforce_file("brute-force.txt");
+    ifstream shift_file("./caesar/shift.txt");
+    ifstream plaintext_file("./caesar/plaintext.txt");
+    ofstream ciphertext_file("./caesar/ciphertext.txt");
+    ofstream decrypted_file("./caesar/decrypted.txt");
+    ofstream bruteforce_file("./caesar/brute-force.txt");
 
     // reading the shift
     getline(shift_file, shift_str);
@@ -110,7 +110,5 @@ int main() {
     // close the files
     shift_file.close(); plaintext_file.close(); ciphertext_file.close();
     decrypted_file.close(); bruteforce_file.close();
-
-    return 0;
 }
 //----------------------------------------------------------------------------//
