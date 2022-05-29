@@ -1,2 +1,1 @@
-uite bine
-tu cum o duci?
+This is an example message
