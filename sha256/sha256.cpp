@@ -64,12 +64,12 @@ void transform()
 	uint32_t state[8];
 
 	for (int i = 0, j = 0; i < 16; i++, j += 4) 
-    { // Split data in 32 bit blocks for the 16 first words
+    {
 		m[i] = (data[j] << 24) | (data[j + 1] << 16) | (data[j + 2] << 8) | (data[j + 3]);
 	}
 
 	for (int k = 16 ; k < 64; k++)
-    { // Remaining 48 blocks
+    {
 		m[k] = sig1(m[k - 2]) + m[k - 7] + sig0(m[k - 15]) + m[k - 16];
 	}
 
@@ -108,10 +108,10 @@ void pad()
     uint64_t i = block_len;
 	uint8_t end = block_len < 56 ? 56 : 64;
 
-    // Append a bit 1
+    // append a bit 1
 	data[i++] = 0x80;
 
-    // Pad with zero
+    // pad with zero
 	while (i < end) 
     {
 		data[i++] = 0x00; 
@@ -123,7 +123,7 @@ void pad()
 		memset(data, 0, 56);
 	}
 
-	// Append the message's length in bits and transform.
+	// append the message's length in bits and transform.
 	bit_len += block_len * 8;
 	data[63] = bit_len;
 	data[62] = bit_len >> 8;
@@ -153,9 +153,8 @@ void update(const uint8_t * text, size_t length)
     {
 		data[block_len++] = text[i];
 		if (block_len == 64) 
-        {
+        { // end of block
 			transform();
-			// End of the block
 			bit_len += 512;
 			block_len = 0;
 		}
